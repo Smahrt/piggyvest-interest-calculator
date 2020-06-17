@@ -1,0 +1,168 @@
+[class*="-section"] {
+  height: 100vh;
+  float: left;
+  position: relative;
+}
+
+.row {
+  width: 100%;
+}
+
+.row::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+[class*="col-"] {
+  float: left;
+}
+
+.col-half {
+  width: 49.999%;
+}
+
+.col-full {
+  width: 100%;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.toggle-history {
+  display: none;
+}
+
+.toggle-history a {
+  margin: 2rem 0;
+  text-align: center;
+  display: block;
+  color: #fff;
+  text-decoration: none;
+}
+
+.left-section {
+  width: 60vw;
+  background-color: #062863;
+}
+
+.left-section h1 {
+  color: #083e9e;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.left-section .brand {
+  background: url("../assets/images/logo-light.png") center center no-repeat;
+  height: 36px;
+  background-size: contain;
+  margin: 2rem 0;
+}
+
+.left-section .form-area {
+  width: 70%;
+  padding: 3rem;
+  background-color: #ffffff;
+  border-radius: 12px 12px 12px 0;
+  margin: 0 auto;
+  display: grid;
+}
+
+.right-section {
+  width: 40vw;
+  background-color: #efefef;
+}
+
+.right-section .messages {
+  padding: 24px 16px 0 16px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.messages .message {
+  display: block;
+  clear: both;
+}
+
+.messages .message .body {
+  margin-bottom: 1rem;
+  max-width: 60%;
+  padding: 16px;
+  height: fit-content;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+.message.user .body {
+  background-color: #083e9e;
+  border-radius: 12px 12px 0 12px;
+  color: #ffffff;
+  float: right;
+}
+
+.message.piggy .body {
+  background-color: #ffffff;
+  border-radius: 12px 12px 12px 0;
+  float: left;
+}
+
+.form-area .form-control {
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+}
+
+.form-control label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: #4a5568;
+  margin-bottom: 8px;
+}
+
+.form-control select,
+.form-control input:not([type="radio"]) {
+  height: 48px;
+  width: 100%;
+  padding-left: 16px;
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: #edf2f7;
+  border: none;
+}
+
+.form-area input[type="button"] {
+  height: 48px;
+  padding: 0 16px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #36c57c;
+  color: #fff;
+  margin: 0 auto;
+  display: block;
+  cursor: pointer;
+  transition: background-color ease-out 0.2s;
+}
+
+.form-area input[type="button"]:hover {
+  background-color: #227a4d;
+}
+
+.form-area input[type="button"]:disabled {
+  background-color: #cccccc;
+}
+
+.body .time::slotted {
+  font-size: 9px;
+}
+@media (max-width: 900px) {
+  .left-section,
+  .right-section {
+    width: 100vw;
+  }
+
+  .toggle-history {
+    display: block;
+  }
+}
