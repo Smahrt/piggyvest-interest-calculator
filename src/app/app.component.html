@@ -7,12 +7,9 @@
       <div class="row">
         <div class="col-full">
           <div class="form-control">
-            <label for="invest">Calculate interest for</label>
-            <input type="radio" [(ngModel)]="data.type" name="type" id="invest" value="invest">
-            <span>&nbsp; Investment</span>
-            &nbsp;&nbsp;
-            <input type="radio" [(ngModel)]="data.type" name="type" id="save" value="save">
-            <span>&nbsp; Savings</span>
+            <label for="invest">Select your plan</label>
+            <span class="plan" [ngClass]="{ active: p.selected }" *ngFor="let p of piggyPlans"
+              (click)="selectPlan(p)"><span [innerHTML]="p.icon"></span> {{ p.name }}</span>
           </div>
         </div>
       </div>
@@ -33,40 +30,17 @@
       </div>
 
       <div class="row">
-        <div class="col-half">
-          <div class="form-control">
-            <label for="rate">Rate in %</label>
-            <input type="text" [(ngModel)]="data.rate" id="rate">
-          </div>
-        </div>
-
-        <div class="col-half">
-          <div class="form-control">
-            <label for="frequency">Frequency</label>
-            <select [(ngModel)]="data.frequency" id="frequency">
-              <option value="monthly">Monthly</option>
-              <option value="annually">Annually</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
         <div class="row-full">
           <input [disabled]="isCalculating" type="button" value="Calculate" (click)="handleCalculate()">
         </div>
       </div>
     </div>
 
-    <div class="toggle-history">
-      <a href="#history">Show Calculation History</a>
-    </div>
+    <div class="response" [innerHTML]="message"></div>
   </div>
   <div class="right-section" id="history">
-    <div class="messages" #messageContainer>
-      <div class="message" [ngClass]="[m.isUser ? 'user' : 'piggy']" *ngFor="let m of messages">
-        <div class="body" [innerHTML]="m.body"></div>
-      </div>
+    <div class="hero">
+      &nbsp;
     </div>
   </div>
 

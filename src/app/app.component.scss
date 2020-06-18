@@ -61,6 +61,14 @@
   margin: 2rem 0;
 }
 
+.right-section .hero {
+  background: url("../assets/images/hero.png") bottom center no-repeat;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
 .left-section .form-area {
   width: 70%;
   padding: 3rem;
@@ -153,16 +161,40 @@
   background-color: #cccccc;
 }
 
-.body .time::slotted {
-  font-size: 9px;
+.plan {
+  display: inline-block;
+  margin-right: 1rem;
+  padding: 0.75rem;
+  background: #efefef;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color ease-out 0.2s;
 }
+
+.plan:hover {
+  background-color: #71a5ff;
+}
+
+.plan.active {
+  border-radius: 12px 12px 12px 0;
+  background-color: #062863;
+  color: #fff;
+}
+
+.response {
+  font-size: 18px;
+  color: #fff;
+  text-align: center;
+  margin-top: 1rem;
+}
+
 @media (max-width: 900px) {
   .left-section,
   .right-section {
     width: 100vw;
   }
 
-  .toggle-history {
-    display: block;
+  .right-section {
+    display: none;
   }
 }

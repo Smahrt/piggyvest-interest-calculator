@@ -1,11 +1,10 @@
 import { Component, ViewChild, ElementRef, OnInit, AfterViewChecked } from '@angular/core';
+import { Icons } from './app.constants';
 
 interface InterestCalculatorData {
-  type: Purpose;
   amount: number;
   duration: number; // in months
-  rate: number; // in %
-  frequency: Frequency;
+  plan: PiggyPlan;
 }
 
 interface Message {
@@ -13,78 +12,88 @@ interface Message {
   isUser: boolean;
 }
 
-enum Purpose {
-  Invest = 'invest',
-  Save = 'save'
-}
-
-enum Frequency {
-  Monthly = 'monthly',
-  Annually = 'annually'
-}
+interface PiggyPlan { name: string; rate: number | number[]; icon: string; selected?: boolean; }
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewChecked {
+export class AppComponent implements OnInit {
   isCalculating = false;
   @ViewChild('messageContainer', { static: false }) messageContainer: ElementRef;
 
+  public piggyPlans: PiggyPlan[] = [
+    {
+      name: 'PiggyBank',
+      rate: 10,
+      icon: Icons.PIGGYBANK,
+      selected: true
+    }, {
+      name: 'SafeLock',
+      rate: [6, 8, 10, 13, 31],
+      icon: Icons.SAFELOCK,
+      selected: false
+    }, {
+      name: 'Targets',
+      rate: 10,
+      icon: Icons.TARGETS,
+      selected: false
+    }, {
+      name: 'Flex Naira',
+      rate: 10,
+      icon: Icons.FLEXNAIRA,
+      selected: false
+    }
+  ];
+
   // define form defaults
   public data: InterestCalculatorData = {
-    type: Purpose.Save,
     amount: 0,
     duration: 6,
-    rate: 0,
-    frequency: Frequency.Monthly
+    plan: {
+      name: 'PiggyBank',
+      rate: 10,
+      icon: Icons.PIGGYBANK,
+      selected: true
+    }
   };
 
-  public messages: Message[] = [];
+  public message = '';
 
   ngOnInit(): void {
-    setTimeout(() =>
-      this.showMessage('Hi, welcome to your very own interest calculator :)<br><br>Use the fields below to get started.', false)
-      , 2000);
   }
 
-  ngAfterViewChecked(): void {
-    this.scrollToBottom();
+  public selectPlan(plan: PiggyPlan) {
+    const index = this.piggyPlans.findIndex(p => p.name === plan.name);
+    this.piggyPlans.forEach(p => {
+      if (p.selected) {
+        p.selected = false;
+      }
+    });
+    this.piggyPlans[index].selected = true;
   }
 
   public handleCalculate() {
     this.isCalculating = true;
-    const userBody = this.buildUserMessage(this.data);
-    this.showMessage(userBody, true);
+    this.data.plan = this.piggyPlans.find(p => p.selected);
     const amount = this.calculateSimpleInterest(this.data);
-    const responseBody = this.buildPiggyMessage(this.data.duration, amount);
-    setTimeout(() => {
-      this.showMessage(responseBody, false);
-      this.isCalculating = false;
-    }, 2000);
+    this.showPiggyMessage(this.data.duration, amount);
+    this.isCalculating = false;
   }
 
-  private calculateSimpleInterest({ amount, duration, rate, frequency }: InterestCalculatorData) {
-    const interest = (rate / 100) * amount;
-    const periodInterest = frequency === Frequency.Monthly ? interest * duration : interest * (duration / 12);
+  private calculateSimpleInterest({ amount, duration, plan }: InterestCalculatorData) {
+    const interest = typeof plan.rate === 'number' ? (plan.rate / 100) * amount
+      : duration < 4
+        ? (plan.rate[duration - 1] / 100) * amount
+        : duration > 3 && duration < 24
+          ? (plan.rate[3] / 100) * amount
+          : (plan.rate[4] / 100) * amount;
+    const periodInterest = interest * (duration / 12);
     return periodInterest + Number(amount);
   }
 
-  private buildPiggyMessage(duration: number, amount: number) {
-    return `In <strong>${duration}</strong> month${duration > 1 ? 's' : ''}, you will have <strong>NGN ${amount}</strong>`;
-  }
-
-  private buildUserMessage({ amount, duration, rate, frequency, type }: InterestCalculatorData) {
-    return `I want to ${type} NGN ${amount} for ${duration} month${duration > 1 ? 's' : ''} at a rate of ${rate}% ${frequency}`;
-  }
-
-  private showMessage(body: string, isUser: boolean) {
-    this.messages.push({ body, isUser });
-    return this.scrollToBottom();
-  }
-
-  private scrollToBottom(): void {
-    this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+  private showPiggyMessage(duration: number, amount: number) {
+    return this.message = `In ${duration} month${duration > 1 ? 's' : ''}, you will have NGN ${amount}`;
   }
 }
