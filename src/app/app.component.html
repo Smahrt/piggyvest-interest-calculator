@@ -4,12 +4,15 @@
 
     <div class="form-area">
       <h1>Interest Calculator</h1>
+      <p>Find out how much your savings will be worth in future</p>
       <div class="row">
         <div class="col-full">
           <div class="form-control">
             <label for="invest">Select your plan</label>
-            <span class="plan" [ngClass]="{ active: p.selected }" *ngFor="let p of piggyPlans"
-              (click)="selectPlan(p)"><span [innerHTML]="p.icon"></span> {{ p.name }}</span>
+            <div class="plans">
+              <span class="plan" [ngClass]="{ active: p.selected }" *ngFor="let p of piggyPlans"
+                (click)="selectPlan(p)"><span [innerHTML]="p.icon"></span> {{ p.name }}</span>
+            </div>
           </div>
         </div>
       </div>

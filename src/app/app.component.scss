@@ -30,18 +30,6 @@
   clear: both;
 }
 
-.toggle-history {
-  display: none;
-}
-
-.toggle-history a {
-  margin: 2rem 0;
-  text-align: center;
-  display: block;
-  color: #fff;
-  text-decoration: none;
-}
-
 .left-section {
   width: 60vw;
   background-color: #062863;
@@ -51,6 +39,11 @@
   color: #083e9e;
   text-align: center;
   font-size: 1.5rem;
+}
+
+.left-section p {
+  text-align: center;
+  color: #627081;
   margin-bottom: 1rem;
 }
 
@@ -59,14 +52,6 @@
   height: 36px;
   background-size: contain;
   margin: 2rem 0;
-}
-
-.right-section .hero {
-  background: url("../assets/images/hero.png") bottom center no-repeat;
-  height: 100vh;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
 }
 
 .left-section .form-area {
@@ -83,36 +68,12 @@
   background-color: #efefef;
 }
 
-.right-section .messages {
-  padding: 24px 16px 0 16px;
+.right-section .hero {
+  background: url("../assets/images/hero.png") bottom center no-repeat;
   height: 100vh;
-  overflow-y: auto;
-}
-
-.messages .message {
-  display: block;
-  clear: both;
-}
-
-.messages .message .body {
-  margin-bottom: 1rem;
-  max-width: 60%;
-  padding: 16px;
-  height: fit-content;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
-}
-
-.message.user .body {
-  background-color: #083e9e;
-  border-radius: 12px 12px 0 12px;
-  color: #ffffff;
-  float: right;
-}
-
-.message.piggy .body {
-  background-color: #ffffff;
-  border-radius: 12px 12px 12px 0;
-  float: left;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }
 
 .form-area .form-control {
@@ -161,9 +122,14 @@
   background-color: #cccccc;
 }
 
+.plans {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 0.5rem;
+}
+
 .plan {
   display: inline-block;
-  margin-right: 0.5rem;
   margin-bottom: 0.5rem;
   padding: 0.75rem;
   background: #efefef;
