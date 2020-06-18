@@ -93,7 +93,7 @@ export class AppComponent implements OnInit {
     return (periodInterest + Number(amount)).toFixed(2);
   }
 
-  private showPiggyMessage(duration: number, amount: number) {
+  private showPiggyMessage(duration: number, amount: string) {
     return this.message = `In ${duration} month${duration > 1 ? 's' : ''}, you will have NGN ${amount}`;
   }
 }
