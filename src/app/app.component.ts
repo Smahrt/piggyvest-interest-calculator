@@ -90,7 +90,7 @@ export class AppComponent implements OnInit {
           ? (plan.rate[3] / 100) * amount
           : (plan.rate[4] / 100) * amount;
     const periodInterest = interest * (duration / 12);
-    return periodInterest + Number(amount);
+    return (periodInterest + Number(amount)).toFixed(2);
   }
 
   private showPiggyMessage(duration: number, amount: number) {
